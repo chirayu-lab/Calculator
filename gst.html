@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GST Calculator</title>
+  <link rel="stylesheet" href="gst-style.css">
+</head>
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2896/2896418.png">
+
+<body>
+
+  <header class="hero">
+    <h1>GST Calculator</h1>
+    <p>Calculate GST instantly</p>
+  </header>
+
+  <section class="calculator">
+    <input type="number" id="amount" placeholder="Amount before GST">
+    <input type="number" id="gstRate" placeholder="GST Rate (%)">
+
+    <button onclick="calculateGST()">Calculate GST</button>
+
+    <div id="result"></div>
+
+    <a href="index.html" class="back">← Back to Home</a>
+  </section>
+
+  <footer>
+    <p>© 2026 Calculator Tools</p>
+  </footer>
+
+  <script>
+    function calculateGST() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const gstRate = parseFloat(document.getElementById("gstRate").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(amount) || isNaN(gstRate)) {
+        result.textContent = "❌ Please enter valid numbers";
+        return;
+      }
+
+      const gstAmount = (amount * gstRate) / 100;
+      const totalAmount = amount + gstAmount;
+
+      result.innerHTML = `
+        <p>GST Amount: ₹${gstAmount.toFixed(2)}</p>
+        <p>Total Amount: ₹${totalAmount.toFixed(2)}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>

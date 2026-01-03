@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculate</title>
+    <link rel="stylesheet" href="emi-style.css">
+</head>
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3523/3523887.png">
+
+<body>
+    <h1>EMI Calculator</h1>
+    <div class="calculator">
+        <input type="number" id="principal" placeholder="Enter Principal Amount">
+        <input type="number" id="rate" placeholder="Enter Annual Interest Rate (%)">
+        <input type="number" id="time" placeholder="Enter Time (years)">
+
+        <button onclick="calculateEMI()">Calculate EMI</button>
+
+        <div id="result"></div>
+
+        <a href="index.html" class="back">← Back to Home</a>
+    </div>
+    <footer>
+        <p>© 2026 Calculator Tools<br>
+            Developed by Chirayu Mishra
+        </p>
+    </footer>
+    <script>
+        function calculateEMI() {
+            const principal = parseFloat(document.getElementById("principal").value);
+            const rate = parseFloat(document.getElementById("rate").value) / 100 / 12;
+            const time = parseFloat(document.getElementById("time").value) * 12;
+            const result = document.getElementById("result");
+
+            if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+                result.textContent = "❌ Please enter valid numbers";
+                return;
+            }
+
+            const emi = (principal * rate * Math.pow(1 + rate, time)) / (Math.pow(1 + rate, time) - 1);
+
+            result.innerHTML = `
+                <p>Monthly EMI: ${emi.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

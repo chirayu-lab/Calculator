@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scientific Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/992/992651.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #0f2027, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .calculator {
+      width: 340px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      border-radius: 22px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    .display {
+      width: 100%;
+      height: 70px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: #00e5ff;
+      font-size: 26px;
+      padding: 15px;
+      text-align: right;
+      margin-bottom: 15px;
+      outline: none;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,191,255,0.4);
+    }
+
+    .operator {
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .equal {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #00ffcc, #00bfff);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .clear {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .small {
+      font-size: 12px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 18px;
+      color: #00e5ff;
+      text-decoration: none;
+      font-size: 14px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .back:hover {
+      opacity: 0.8;
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" class="display" readonly>
+
+  <div class="buttons">
+    <button onclick="add('sin(')" class="small">sin</button>
+    <button onclick="add('cos(')" class="small">cos</button>
+    <button onclick="add('tan(')" class="small">tan</button>
+    <button onclick="add('log(')" class="small">log</button>
+    <button onclick="add('ln(')" class="small">ln</button>
+
+    <button onclick="add('π')" class="small">π</button>
+    <button onclick="add('e')" class="small">e</button>
+    <button onclick="add('**2')" class="small">x²</button>
+    <button onclick="add('**3')" class="small">x³</button>
+    <button onclick="add('√(')" class="small">√</button>
+
+    <button onclick="add('7')">7</button>
+    <button onclick="add('8')">8</button>
+    <button onclick="add('9')">9</button>
+    <button onclick="add('/')" class="operator">÷</button>
+    <button onclick="clearDisplay()" class="clear">C</button>
+
+    <button onclick="add('4')">4</button>
+    <button onclick="add('5')">5</button>
+    <button onclick="add('6')">6</button>
+    <button onclick="add('*')" class="operator">×</button>
+    <button onclick="add('(')">(</button>
+
+    <button onclick="add('1')">1</button>
+    <button onclick="add('2')">2</button>
+    <button onclick="add('3')">3</button>
+    <button onclick="add('-')" class="operator">−</button>
+    <button onclick="add(')')">)</button>
+
+    <button onclick="add('0')">0</button>
+    <button onclick="add('.')">.</button>
+    <button onclick="calculate()" class="equal">=</button>
+    <button onclick="add('+')" class="operator">+</button>
+  </div>
+
+  <a href="index.html" class="back">← Back to Home</a>
+</div>
+
+<script>
+  const display = document.getElementById("display");
+
+  function add(value) {
+    display.value += value;
+  }
+
+  function clearDisplay() {
+    display.value = "";
+  }
+
+  function toRadians(deg) {
+    return deg * Math.PI / 180;
+  }
+
+  function calculate() {
+    try {
+      let expr = display.value
+        .replace(/π/g, "Math.PI")
+        .replace(/e/g, "Math.E")
+        .replace(/sin\(([^)]+)\)/g, "Math.sin(toRadians($1))")
+        .replace(/cos\(([^)]+)\)/g, "Math.cos(toRadians($1))")
+        .replace(/tan\(([^)]+)\)/g, "Math.tan(toRadians($1))")
+        .replace(/log/g, "Math.log10")
+        .replace(/ln/g, "Math.log")
+        .replace(/√/g, "Math.sqrt");
+
+      display.value = eval(expr);
+    } catch {
+      display.value = "Error";
+    }
+  }
+</script>
+
+</body>
+</html>
