@@ -1,21 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Online Calculators</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2103/2103658.png">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .hero {
+      background-color: #000000;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      border: #4CAF50 2px solid;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: fadein 2s;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hero:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      transform: scale(1.02);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.5em;
+      margin-top: 0;
+    }
+
+    .hero:active {
+      transform: scale(0.98);
+      transition: transform 0.1s;
+    }
+
+    .hero a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .hero a:hover {
+      color: #e0e0e0;
+    }
+
+    .hero::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, #81C784, #388E3C);
+      margin-top: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      animation: boxshadow 5s infinite alternate;
+    }
+
+    @keyframes boxshadow {
+      from {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      to {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .cards .card h2 {
+      margin-top: 0;
+      font-size: 1.5em;
+    }
+
+    .cards {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #050605;
+      color: white;
+      margin-top: 40px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    button {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #18181a;
+      color: #18181a;
+      font-size: 15px;
+      line-height: 15px;
+      padding: 18px 18px 17px;
+      cursor: pointer;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    button span:first-child {
+      position: relative;
+      transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+      z-index: 10;
+    }
+
+    button span:last-child {
+      color: white;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+      z-index: 100;
+      opacity: 0;
+      top: 50%;
+      left: 50%;
+      transform: translateY(225%) translateX(-50%);
+      height: 14px;
+      line-height: 13px;
+    }
+
+    button:after {
+      content: "";
+      position: absolute;
+      bottom: -50%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      transform-origin: bottom center;
+      transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+      transform: skewY(9.3deg) scaleY(0);
+      z-index: 50;
+    }
+
+    button:hover:after {
+      transform-origin: bottom center;
+      transform: skewY(9.3deg) scaleY(2);
+    }
+
+    button:hover span:last-child {
+      transform: translateX(-50%) translateY(-50%);
+      opacity: 1;
+      transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+    }
+
+    .cardss {
+      width: 400px;
+      height: 350px;
+      --black: #000000;
+      --ch-black: #141414;
+      --eer-black: #1b1b1b;
+      --night-rider: #2e2e2e;
+      --white: #ffffff;
+      --af-white: #f3f3f3;
+      --ch-white: #e1e1e1;
+      font-family: Helvetica, sans-serif;
+      margin: 20px auto;/* keep this for inner content */
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+    }
+
+    .wrapper {
+      margin: 2rem auto;
+      width: 250px;
+      font-size: small;
+    }
+
+    .title {
+      text-align: center;
+      color: #1b1b1b;
+    }
+
+    .heading {
+      font-weight: bold;
+      letter-spacing: 7px;
+      font-size: 1.5rem;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .heading::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #e8e8e8;
+      z-index: -1;
+      filter: blur(50px);
+      height: 50px;
+    }
+
+    .color {
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .hex {
+      text-align: end;
+      font-family: monospace;
+      text-transform: uppercase;
+    }
+
+    .black {
+      background: var(--black);
+      color: var(--ch-white);
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .eerie-black {
+      background: var(--eer-black);
+      color: var(--ch-white);
+    }
+
+    .chinese-black {
+      background: var(--ch-black);
+      color: var(--ch-white);
+    }
+
+    .night-rider {
+      background: var(--night-rider);
+      color: var(--ch-white);
+    }
+
+    .chinese-white {
+      background: var(--ch-white);
+      color: var(--night-rider);
+    }
+
+    .anti-flash-white {
+      background: var(--af-white);
+      color: var(--night-rider);
+    }
+
+    .white {
+      background: var(--white);
+      color: var(--night-rider);
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .border {
+      color: var(--night-rider);
+      padding: 10px 10px;
+      text-align: center;
+    }
+
+    .border span {
+      border-radius: 5px;
+      color: var(--ch-white);
+      padding: 2px 4px;
+      background-color: var(--night-rider);
+    }
+  </style>
 </head>
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2103/2103658.png">
 
 <body>
-
   <header class="hero">
     <h1>Online Calculators</h1>
     <p>Fast, free & easy calculators for daily use</p>
   </header>
 
   <section class="cards">
-
     <a href="gst.html" class="card">
       <h2>GST Calculator</h2>
       <p>Calculate GST amount, CGST & SGST easily for India.</p>
@@ -35,14 +326,53 @@
       <h2>Scientific Calculator</h2>
       <p>Advanced calculator for scientific calculations.</p>
     </a>
-
   </section>
 
+
+  <div class="cardss">
+    <div class="title">
+      <p class="heading">In case you want to use our<br>
+        color palette</p>
+    </div>
+    <div class="wrapper">
+      <div class="color black">
+        black
+        <span class="hex">#000000</span>
+      </div>
+      <div class="color eerie-black">
+        eerie-black
+        <span class="hex">#1b1b1b</span>
+      </div>
+      <div class="color chinese-black">
+        chinese-black
+        <span class="hex">#141414</span>
+      </div>
+      <div class="color night-rider">
+        night rider
+        <span class="hex">#2e2e2e</span>
+      </div>
+      <div class="color chinese-white">
+        chinese-white
+        <span class="hex">#e1e1e1</span>
+      </div>
+      <div class="color anti-flash-white">
+        anti-flash-white
+        <span class="hex">#f3f3f3</span>
+      </div>
+      <div class="color white">
+        white
+        <span class="hex">#ffffff</span>
+      </div>
+      <div class="border">common border radius <span>5px | 8px</span></div>
+    </div>
+  </div>
+  <button><span class="text" style="margin: 0 auto;">DO YOU LIKE IT</span><span>Thanks!</span></button>
+
   <footer>
-    <p>© 2026 Calculator Tools <br>
-        Developed by Chirayu Mishra
+    <p>© 2024 Calculator Tools <br>
+      Developed by Chirayu Mishra
     </p>
   </footer>
-
 </body>
+
 </html>
